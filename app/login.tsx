@@ -1,71 +1,133 @@
-import { View, TextInput, Button, StyleSheet } from "react-native"
-import { useState } from "react"
-import { router } from "expo-router"
+import { router } from "expo-router";
+import { useState } from "react";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import { Header } from "../components/ui/header";
+import { PrimaryButton } from "../components/ui/primary-button";
+import { TextInputField } from "../components/ui/text-input-field";
+import { Colors, Radius, Spacing } from "../constants/theme";
+import { useToast } from "../context/toast-context";
+import { useColorScheme } from "../hooks/use-color-scheme";
 
-export default function Login() {
+const LoginScreen = () => {
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const scheme = useColorScheme() === "dark" ? "dark" : "light";
+  const palette = Colors[scheme];
+  const { showToast } = useToast();
 
-  const [nome, setNome] = useState("")
-  const [senha, setSenha] = useState("")
-
-  function entrar() {
-
-    if (nome && senha) {
-      router.replace("/produtos")
-    } else {
-      alert("Preencha os campos")
-    }
-
-  }
+  const handleSignIn = () => {
+    showToast("Bem-vindo!", "success");
+    router.replace("/products");
+  };
 
   return (
+    <KeyboardAvoidingView
+      style={[styles.container, { backgroundColor: palette.background }]}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <View style={styles.wrapper}>
+        <View
+          style={[
+            styles.card,
+            {
+              backgroundColor: palette.surface,
+              borderColor: palette.border,
+            },
+          ]}
+        >
+          <Header
+            title="Supermercado"
+            subtitle="Faça login para começar suas compras."
+          />
 
-    <View style={styles.container}>
+          <View style={styles.form}>
+            <TextInputField
+              label="Nome"
+              placeholder="Insira seu nome"
+              value={name}
+              onChangeText={setName}
+              autoCapitalize="words"
+              autoCorrect={false}
+              returnKeyType="next"
+            />
 
-      <TextInput
-        placeholder="Nome"
-        style={styles.input}
-        value={nome}
-        onChangeText={setNome}
-      />
+            <TextInputField
+              label="Senha"
+              placeholder="Insira sua senha"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              returnKeyType="done"
+            />
 
-      <TextInput
-        placeholder="Senha"
-        style={styles.input}
-        secureTextEntry
-        value={senha}
-        onChangeText={setSenha}
-      />
+            <View style={styles.actionsRow}>
+              <PrimaryButton
+                label="Entrar"
+                onPress={handleSignIn}
+                style={styles.primaryButton}
+              />
 
-     <div className="space-x-2 flex items-center">
-       <Button
-        title="Entrar"
-        onPress={entrar}
-      />
-
-      <Button
-        title="Cadastrar"
-        onPress={() => router.push("/cadastro")}
-      />
-     </div>
-
-    </View>
-
-  )
-}
+              <PrimaryButton
+                label="Cadastrar"
+                onPress={() => router.push("/register")}
+                variant="outline"
+                style={styles.secondaryButton}
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
+  );
+};
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 20
   },
 
-  input: {
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10
-  }
+  wrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.xl,
+  },
 
-})
+  card: {
+    width: "100%",
+    maxWidth: 420,
+    padding: Spacing.xl,
+    borderRadius: Radius.lg,
+    borderWidth: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 4,
+  },
+
+  form: {
+    marginTop: Spacing.xl,
+    gap: Spacing.lg,
+  },
+
+  actionsRow: {
+    marginTop: Spacing.md,
+    flexDirection: "row",
+    gap: Spacing.md,
+  },
+
+  primaryButton: {
+    flex: 1,
+  },
+
+  secondaryButton: {
+    flex: 1,
+  },
+});
+
+export default LoginScreen;
