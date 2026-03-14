@@ -6,18 +6,41 @@ type HeaderProps = {
   title: string;
   subtitle?: string;
   centered?: boolean;
+  titleSize?: number;
+  subtitleSize?: number;
 };
 
-export const Header = ({ title, subtitle, centered = false }: HeaderProps) => {
+export const Header = ({
+  title,
+  subtitle,
+  centered = false,
+  titleSize,
+  subtitleSize,
+}: HeaderProps) => {
   const scheme = useColorScheme() === "dark" ? "dark" : "light";
   const palette = Colors[scheme];
 
   return (
     <View style={[styles.container, centered && styles.centered]}>
-      <Text style={[styles.title, { color: palette.text }]}>{title}</Text>
+      <Text
+        style={[
+          styles.title,
+          { color: palette.text, fontSize: titleSize ?? styles.title.fontSize },
+        ]}
+      >
+        {title}
+      </Text>
 
       {subtitle ? (
-        <Text style={[styles.subtitle, { color: palette.muted }]}>
+        <Text
+          style={[
+            styles.subtitle,
+            {
+              color: palette.muted,
+              fontSize: subtitleSize ?? styles.subtitle.fontSize,
+            },
+          ]}
+        >
           {subtitle}
         </Text>
       ) : null}

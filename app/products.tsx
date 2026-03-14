@@ -23,16 +23,27 @@ const ProductsScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: palette.background }]}>
       <View style={styles.headerContainer}>
-        <Header
-          title="Produtos"
-          subtitle="Escolha seus itens favoritos do mercado."
-        />
-
-        <PrimaryButton
-          label="Ver carrinho"
-          onPress={() => router.push("/cart")}
-          style={styles.cartButton}
-        />
+        <View style={{ flex: 1 }}>
+          <Header
+            title="Produtos"
+            subtitle="Escolha seus itens favoritos do mercado."
+            titleSize={22}
+            subtitleSize={14}
+          />
+        </View>
+        <View style={styles.headerButtons}>
+          <PrimaryButton
+            label="Ver carrinho"
+            onPress={() => router.push("/cart")}
+            style={styles.cartButton}
+          />
+          <PrimaryButton
+            label="Sair"
+            onPress={() => router.replace("/login")}
+            variant="outline"
+            style={styles.logoutButton}
+          />
+        </View>
       </View>
 
       <FlatList
@@ -58,23 +69,29 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xl,
-    paddingBottom: Spacing.md,
+    paddingHorizontal: Spacing.md,
+    paddingTop: Spacing.lg,
+    paddingBottom: Spacing.sm,
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    gap: Spacing.md,
+    gap: Spacing.sm,
+  },
+
+  headerButtons: {
+    flexDirection: "column",
+    gap: Spacing.xs,
+    alignItems: "flex-end",
   },
 
   listContent: {
-    paddingHorizontal: Spacing.xl,
-    paddingBottom: Spacing["2xl"],
+    paddingHorizontal: Spacing.md,
+    paddingBottom: Spacing.xl,
   },
 
   columnWrapper: {
-    gap: Spacing.md,
-    marginBottom: Spacing.md,
+    gap: Spacing.sm,
+    marginBottom: Spacing.sm,
   },
 
   cardWrapper: {
@@ -82,8 +99,14 @@ const styles = StyleSheet.create({
   },
 
   cartButton: {
-    alignSelf: "flex-start",
-    paddingHorizontal: Spacing.md,
+    minWidth: 120,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    marginBottom: Spacing.xs,
+  },
+  logoutButton: {
+    minWidth: 120,
+    paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
   },
 });
