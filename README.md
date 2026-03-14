@@ -1,50 +1,173 @@
-# Welcome to your Expo app 👋
+## Supermarket React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicação mobile construída com React Native e Expo que simula o fluxo de compras em um supermercado, incluindo autenticação fictícia, listagem de produtos e carrinho de compras.
 
-## Get started
+### Objetivo do projeto
 
-1. Install dependencies
+O objetivo deste projeto é servir como um protótipo frontend para um aplicativo de supermercado, demonstrando:
+
+- **Fluxo básico de autenticação de usuário** (login e cadastro, apenas para fins visuais).
+- **Listagem de produtos** com imagem, nome e preço.
+- **Adição de produtos ao carrinho** a partir da lista.
+- **Visualização do carrinho** com itens agrupados, quantidade e total da compra.
+
+Não há qualquer integração com backend ou persistência real de dados.
+
+### Funcionalidades implementadas
+
+- **Tela de Login**
+  - Entrada de nome e senha.
+  - Navegação para cadastro.
+  - Navegação para a tela de produtos após login.
+  - Feedback visual via toast em caso de sucesso.
+
+- **Tela de Cadastro**
+  - Formulário com nome, senha e confirmação de senha.
+  - Retorno para a tela de login após “salvar”.
+
+- **Tela de Produtos**
+  - Exibição de uma lista de produtos estáticos com:
+    - imagem
+    - nome
+    - preço
+  - Botão para adicionar produto ao carrinho.
+  - Botão para navegar para a tela de carrinho.
+  - Toasts informando quando um produto é adicionado ao carrinho.
+
+- **Tela de Carrinho**
+  - Exibição dos produtos adicionados ao carrinho, agrupados por item.
+  - Exibição de:
+    - nome do produto
+    - quantidade
+    - preço unitário
+    - total por item
+    - total geral da compra
+  - Botão para remover uma unidade de cada produto.
+  - Estado vazio com mensagem amigável quando não há itens.
+
+- **Toasts de feedback**
+  - Sucesso ao realizar login.
+  - Sucesso ao adicionar produto ao carrinho.
+  - Mensagem informando remoção de item do carrinho.
+
+### Telas do sistema
+
+- **Login**
+  - Campos de nome e senha.
+  - Botões de “Entrar” e “Cadastrar”.
+
+- **Cadastro**
+  - Campos de nome, senha e confirmação de senha.
+  - Botão de “Salvar”, retornando ao login.
+
+- **Produtos**
+  - Lista de produtos com card moderno (imagem, título, preço e botão de ação).
+  - Botão no topo para acessar o carrinho.
+
+- **Carrinho**
+  - Lista de itens agrupados com quantidade e totais.
+  - Botão para remover uma unidade de cada item.
+  - Exibição do total geral da compra.
+  - Estado de “carrinho vazio” com mensagem explicativa.
+
+### Tecnologias utilizadas
+
+- **React Native** (Expo)
+- **Expo Router** para navegação baseada em arquivos
+- **TypeScript**
+- **Context API + Hooks** para gerenciamento de estado do carrinho e toasts
+
+### Como instalar o projeto
+
+1. Certifique-se de ter **Node.js** e **npm** instalados.
+2. Clone este repositório:
+
+   ```bash
+   git clone <URL-DO-REPOSITORIO>
+   cd supermarket-react-native
+   ```
+
+3. Instale as dependências:
 
    ```bash
    npm install
    ```
 
-2. Start the app
+### Como rodar o projeto
+
+1. Inicie o servidor de desenvolvimento do Expo:
 
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+2. Você pode abrir o app de diferentes formas:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **Dispositivo físico**: usando o aplicativo Expo Go (Android/iOS) e escaneando o QR Code.
+- **Emulador Android**: via Android Studio.
+- **Simulador iOS**: via Xcode (apenas em macOS).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Como usar a aplicação
 
-## Get a fresh project
+- **Login**
+  - Preencha o nome e a senha com qualquer valor.
+  - Toque em “Entrar” para ir para a tela de produtos.
+  - Use “Cadastrar” caso queira navegar para o formulário de cadastro.
 
-When you're ready, run:
+- **Cadastro**
+  - Preencha os campos de nome, senha e confirmação de senha.
+  - Toque em “Salvar” para retornar à tela de login.
+  - Não há validação real de dados ou persistência: é apenas simulação visual.
 
-```bash
-npm run reset-project
+- **Produtos**
+  - Navegue pela lista de produtos.
+  - Toque em “Adicionar ao carrinho” para incluir um item.
+  - Use o botão “Ver carrinho” para ir para a tela de carrinho.
+
+- **Carrinho**
+  - Visualize os itens adicionados, quantidades e totais.
+  - Use o botão “Remover 1” para remover uma unidade de um produto.
+  - Quando todos os itens forem removidos, a tela exibirá o estado de carrinho vazio.
+
+### Estrutura de pastas (simplificada)
+
+```text
+app/
+  _layout.tsx        # Layout principal com providers
+  login.tsx          # Tela de Login
+  register.tsx       # Tela de Cadastro
+  products.tsx       # Tela de Produtos
+  cart.tsx           # Tela de Carrinho
+
+components/
+  product-card.tsx   # Card de produto
+  ui/
+    Header.tsx
+    primary-button.tsx
+    text-input-field.tsx
+    empty-state.tsx
+    loader.tsx
+
+constants/
+  products.ts        # Lista estática de produtos
+  theme.ts           # Tema (cores, espaçamentos, tipografia)
+
+context/
+  toast-context.tsx  # Contexto para gerenciamento de toasts
+
+hooks/
+  useCart.tsx             # Contexto e hook do carrinho
+  use-color-scheme.ts     # Detecção de tema claro/escuro
+  use-theme-color.ts      # Utilitário de cores por tema
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Observações importantes
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- **Somente frontend**: este projeto não possui backend, banco de dados ou autenticação real.
+- **Dados simulados**: a lista de produtos é fixa e definida em código.
+- **Sem persistência**: ao fechar o app, o carrinho e demais estados são perdidos.
+- **Projeto acadêmico**: o código foi organizado para servir de exemplo em contexto universitário, com foco em:
+  - boas práticas de organização de pastas
+  - componentização
+  - uso de contexto e hooks
+  - design moderno e consistente para um app de compras
