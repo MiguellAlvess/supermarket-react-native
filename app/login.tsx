@@ -9,7 +9,7 @@ import { useToast } from "../context/toast-context";
 import { useColorScheme } from "../hooks/use-color-scheme";
 
 const LoginScreen = () => {
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const scheme = useColorScheme() === "dark" ? "dark" : "light";
   const palette = Colors[scheme];
@@ -42,12 +42,13 @@ const LoginScreen = () => {
 
           <View style={styles.form}>
             <TextInputField
-              label="Nome"
-              placeholder="Insira seu nome"
-              value={name}
-              onChangeText={setName}
-              autoCapitalize="words"
+              label="E-mail"
+              placeholder="Insira seu e-mail"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
               autoCorrect={false}
+              keyboardType="email-address"
               returnKeyType="next"
             />
 

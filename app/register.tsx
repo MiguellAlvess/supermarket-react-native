@@ -10,7 +10,7 @@ import { useToast } from "../context/toast-context";
 import { useColorScheme } from "../hooks/use-color-scheme";
 
 const RegisterScreen = () => {
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const scheme = useColorScheme() === "dark" ? "dark" : "light";
@@ -45,12 +45,13 @@ const RegisterScreen = () => {
 
           <View style={styles.form}>
             <TextInputField
-              label="Nome"
-              placeholder="Insira seu nome"
-              value={name}
-              onChangeText={setName}
-              autoCapitalize="words"
+              label="E-mail"
+              placeholder="Insira seu e-mail"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
               autoCorrect={false}
+              keyboardType="email-address"
               returnKeyType="next"
             />
 
