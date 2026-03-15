@@ -1,4 +1,4 @@
-## Supermarket React Native
+## Supermercado - React Native
 
 Aplicação mobile construída com React Native e Expo que simula o fluxo de compras em um supermercado, incluindo autenticação fictícia, listagem de produtos e carrinho de compras.
 
